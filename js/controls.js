@@ -67,7 +67,7 @@ window.addEventListener("keyup", e => {
 
 function handleControls() {
     movement()
-    attacks()
+    attack()
 
     function movement() {
         player.velocity.x = 0
