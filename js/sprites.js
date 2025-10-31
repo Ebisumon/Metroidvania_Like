@@ -1,6 +1,6 @@
 const gravity = 0.6
 
-const backgroundSpritePath = "C:/Users/leona/Desktop/VSprojetos/Metroidvania_Like/assets/background/placeholder.png"
+const backgroundSpritePath = "./assets/background/placeholder.png"
 
 class Sprite {
     constructor({ position, velocity, dimensions, source }) {
