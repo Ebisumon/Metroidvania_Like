@@ -1,16 +1,36 @@
 const gravity = 0.6
 
+const backgroundSpritePath = "C:/Users/leona/Desktop/VSprojetos/Metroidvania_Like/assets/background/placeholder.png"
+
 class Sprite {
-    constructor({ position, velocity, dimensions, }) {
+    constructor({ position, velocity, dimensions, source }) {
         this.position = position
         this.velocity = velocity
-        this.width = dimensions.width
-        this.height = dimensions.height
+        this.width = dimensions?.width
+        this.height = dimensions?.height
+
+        if (source) {
+            this.image = new Image()
+            this.image.src = source
+
+            this.width = this.image.width
+            this.height = this.image.height
+        }
     }
 
     draw() {
-        ctx.fillStyle = "white"
-        ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
+        if (this.image) {
+            ctx.drawImage(
+                this.image,
+                this.position.x,
+                this.position.y,
+                this.width,
+                this.height
+            )
+        } else {
+            ctx.fillStyle = "white"
+            ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
+        }
 
         if(this.isAttacking) {
             ctx.fillStyle = "red"
@@ -83,10 +103,15 @@ class Fighter extends Sprite {
         if (this.onAttackCooldown) return
 
         this.isAttacking = true
+        this.onAttackCooldown = true
 
         setTimeout(() => {
             this.isAttacking = false
-        },100)
+        }, 100)
+
+        setTimeout(() => {
+            this.onAttackCooldown = false
+        }, this.attackCooldown)
     }
 
     jump() {
@@ -111,7 +136,7 @@ const player = new Fighter({
     }
 })
 
-const player2 = new Fighter({
+/* const player2 = new Fighter({
     position: {
         x: 500,
         y: 20
@@ -124,4 +149,12 @@ const player2 = new Fighter({
         width: 50,
         height: 200
     }
+}) */
+
+const background = new Sprite({
+    position: {
+        x: 0,
+        y: 0
+    },
+    source: backgroundSpritePath
 })
